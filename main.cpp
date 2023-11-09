@@ -11,11 +11,21 @@ int main()
     start1 = chrono::duration_cast<chrono::nanoseconds>(chrono::high_resolution_clock::now().time_since_epoch()).count();
     // ##### START OF SECTION 1 #####
     // create a vector of n threads
-    
+    vector<thread*> threads;
     // create n threads
-
+    for (i = 0; i < nthreads; i++)
+    {
+        // create a thread to run the function single_sum_thread
+        // pass in the thread id, number of threads, and the sum array
+        // push the thread into the vector
+        threads.push_back(new thread(single_sum_thread, i, nthreads, sum));
+    }
     // join the threads with the main thread
-    
+    for (int i = 0; i < nthreads; i++)
+    {
+        threads[i]->join();
+    }
+    threads.clear();
     // ##### END OF SECTION 1 #####
     end1 = chrono::duration_cast<chrono::nanoseconds>(chrono::high_resolution_clock::now().time_since_epoch()).count();
 
@@ -24,11 +34,20 @@ int main()
     // parallelize the following code, reference main.h for the function prototype
     // comment out this block of code when you are done with the parallelization 
     // (only need sleep 1 in the thread function)
-    for (i = 0, pi = 0.0; i < nthreads; i++)
+    //because 
+        for (i = 0; i < nthreads; i++)
     {
-        pi += sum[i][0] * step;
-        sleep(1); // simulate a long running task
+        // create a thread to run the function single_sum_thread
+        // pass in the thread id, number of threads, and the sum array
+        // push the thread into the vector
+        threads.push_back(new thread(pi_sum_thread, i, nthreads, sum));
     }
+    // join the threads with the main thread
+    for (int i = 0; i < nthreads; i++)
+    {
+        threads[i]->join();
+    }
+    threads.clear();
 
     // ##### END OF SECTION 2 #####
     end2 = chrono::duration_cast<chrono::nanoseconds>(chrono::high_resolution_clock::now().time_since_epoch()).count();
