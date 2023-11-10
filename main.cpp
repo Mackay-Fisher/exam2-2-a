@@ -37,7 +37,7 @@ int main()
     // parallelize the following code, reference main.h for the function prototype
     // comment out this block of code when you are done with the parallelization 
     // (only need sleep 1 in the thread function)
-    //because 
+    //because now each vaklue will acess teh sums i value at taht pouint and add it to the pi value as opposed ot goingg the rough eahc index of teh array.
     for (i = 0; i < nthreads; i++) {
         //passed value in by refrence so that I can chaneg it each time the peice runs on teh new step value
         threads.push_back( new thread(pi_sum_thread, i, sum,step,std::ref(pi)));

@@ -39,9 +39,11 @@ inline void single_sum_thread(int id, int num_threads, double sum[NUM_THREADS][P
 // TODO
 inline void pi_sum_thread(int id, double sum[NUM_THREADS][PAD], double step, double& partial_sum)
 {
-    // add your code here
+    //This is  aveyr basic lock of the critical section where the partial sum is being added to the pi value
     mtx.lock();
+    //add the partial sum to the pi value where eahc valeu is vbased upon the id of the thread that is passed ibn to speed teh processs whihc will then change the partial sum value
     partial_sum += sum[id][0] * step;
+    //This will unlock the critical section so that the next thread can access it
     mtx.unlock();
     sleep(1);
 }
