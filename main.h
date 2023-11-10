@@ -37,8 +37,11 @@ inline void single_sum_thread(int id, int num_threads, double sum[NUM_THREADS][P
 }
 
 // TODO
-inline void pi_sum_thread(int id, int num_threads, double sum[NUM_THREADS][PAD])
+inline void pi_sum_thread(int id, double sum[NUM_THREADS][PAD], double step, double& partial_sum)
 {
-    // add code here
-    sleep(1); // DO NOT REMOVE THIS
+    // add your code here
+    mtx.lock();
+    partial_sum += sum[id][0] * step;
+    mtx.unlock();
+    sleep(1);
 }

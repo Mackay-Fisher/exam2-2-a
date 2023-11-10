@@ -25,6 +25,9 @@ int main()
     {
         threads[i]->join();
     }
+    for(int i=0; i<nthreads;i++){
+        delete threads[i];
+    }
     threads.clear();
     // ##### END OF SECTION 1 #####
     end1 = chrono::duration_cast<chrono::nanoseconds>(chrono::high_resolution_clock::now().time_since_epoch()).count();
@@ -35,17 +38,17 @@ int main()
     // comment out this block of code when you are done with the parallelization 
     // (only need sleep 1 in the thread function)
     //because 
-        for (i = 0; i < nthreads; i++)
-    {
-        // create a thread to run the function single_sum_thread
-        // pass in the thread id, number of threads, and the sum array
-        // push the thread into the vector
-        threads.push_back(new thread(pi_sum_thread, i, nthreads, sum));
+    for (i = 0; i < nthreads; i++) {
+        //passed value in by refrence so that I can chaneg it each time the peice runs on teh new step value
+        threads.push_back( new thread(pi_sum_thread, i, sum,step,std::ref(pi)));
     }
     // join the threads with the main thread
     for (int i = 0; i < nthreads; i++)
     {
         threads[i]->join();
+    }
+    for(int i=0; i<nthreads;i++){
+        delete threads[i];
     }
     threads.clear();
 
